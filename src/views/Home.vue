@@ -1,18 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Jokes v-bind:jokeList="jokeList" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import axios from 'axios';
+import Jokes from '@/components/Jokes.vue';
 
 export default {
-  name: 'Home',
+  name: "Home",
+  data() {
+    return {
+      jokeList: []
+    }
+  },
   components: {
-    HelloWorld
-  }
+    Jokes,
+  },
+  created(){
+    axios.get("https://official-joke-api.appspot.com/jokes/programming/ten")
+      .then(res => this.jokeList = res.data)
+    }
 }
+
+
 </script>
+
+<style lang="scss" scoped>
+  .home{
+    margin: 2vh 3vw;
+  }
+</style>
