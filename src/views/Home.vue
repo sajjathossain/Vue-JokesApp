@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <Jokes v-bind:jokeList="jokeList" />
+    <button @click="fetchJokes" class="btn btn-success btn-lg">Fetch More!</button>
   </div>
 </template>
 
@@ -22,7 +23,13 @@ export default {
   created(){
     axios.get("https://official-joke-api.appspot.com/jokes/programming/ten")
       .then(res => this.jokeList = res.data)
+  },
+  methods: {
+    fetchJokes: function(){
+      axios.get("https://official-joke-api.appspot.com/jokes/programming/ten")
+        .then(res => this.jokeList = res.data)
     }
+  }
 }
 
 
@@ -31,5 +38,12 @@ export default {
 <style lang="scss" scoped>
   .home{
     margin: 2vh 3vw;
+
+    button{
+      display: block;
+      margin: 5vh auto;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
   }
 </style>
